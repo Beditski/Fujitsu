@@ -5,18 +5,20 @@ import java.sql.*;
 import java.util.List;
 
 import com.fujitsu.deliveryapp.models.WeatherStation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class WeatherStationDAO {
-    private static final String URL = "jdbc:h2:~/test";
+    private static final String URL = "jdbc:h2:~/test;AUTO_SERVER=TRUE";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "";
 
     private static Connection connection;
 
-    static {
+    @Autowired
+    public WeatherStationDAO() {
         try {
             Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
@@ -37,7 +39,6 @@ public class WeatherStationDAO {
     }
 
     private void updateWeatherStationTable(WeatherStation weatherStation) {
-
         try (Statement statement = connection.createStatement()) {
             String SQL = "INSERT INTO weather_station VALUES(" + weatherStation + ")";
             statement.executeUpdate(SQL);
