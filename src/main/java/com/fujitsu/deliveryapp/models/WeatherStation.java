@@ -27,41 +27,17 @@ public class WeatherStation {
         this.timestamp = timestamp;
     }
 
-    public String getNameOfTheStation() {
-        return nameOfTheStation;
-    }
-
-    public int getWmoCode() {
-        return wmoCode;
-    }
-
-    public double getAirTemperature() {
-        return airTemperature;
-    }
-
-    public double getWindSpeed() {
-        return windSpeed;
-    }
-
-    public String getWeatherPhenomenon() {
-        return weatherPhenomenon;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
     /**
      * Returns information about weather station at corresponding timestamp in the steing format. <br>
      * @return station's info
      */
     @Override
     public String toString() {
-        return this.getWmoCode() + ", " + '\'' +
-                this.getNameOfTheStation() + '\'' + ", " +
-                this.getAirTemperature() + ", " +
-                this.getWindSpeed() + ", " + '\'' +
-                this.getWeatherPhenomenon() + '\'' + ", " +
-                this.getTimestamp();
+        return this.wmoCode + ", " + '\'' +
+                this.nameOfTheStation + '\'' + ", " +
+                this.airTemperature + ", " +
+                this.windSpeed + ", " + '\'' +
+                this.weatherPhenomenon + '\'' + ", " +
+                this.timestamp;
     }
 }
