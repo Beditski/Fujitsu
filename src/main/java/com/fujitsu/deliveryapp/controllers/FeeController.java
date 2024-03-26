@@ -21,20 +21,23 @@ public class FeeController {
         this.feeDAO = feeDAO;
     }
 
+    @GetMapping("")
+    private String loadPage() {
+        return "fee";
+    }
+
     @GetMapping("/calculator")
-//    @ResponseBody
     private String getFee(@RequestParam(value = "city") String city,
-                         @RequestParam(value = "transport") String transport,
-                         @RequestParam(value = "atef", required = false) double[] atef,
-                         @RequestParam(value = "wsef", required = false) double[] wsef,
-                         @RequestParam(value = "wpef", required = false) double[] wpef,
-                         @RequestParam(value = "datetime", required = false) DateFormat dateTime
-    ) throws SQLException {
+                          @RequestParam(value = "transport") String transport,
+                          @RequestParam(value = "atef", required = false) double[] atef,
+                          @RequestParam(value = "wsef", required = false) double[] wsef,
+                          @RequestParam(value = "wpef", required = false) double[] wpef,
+                          @RequestParam(value = "datetime", required = false) DateFormat dateTime
+    ) throws Exception {
 
 
         FeeRules fee = new FeeRules(city, transport, null, atef, wsef, wpef, dateTime);
-//        System.out.println(fee.getRegion());
-//        System.out.println(this.feeDAO.calculateFee(fee));
+        System.out.println(this.feeDAO.calculateFee(fee));
         return "fee/calculator";
     }
 

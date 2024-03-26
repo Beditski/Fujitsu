@@ -28,55 +28,89 @@ public class FeeDAO {
         }
     }
 
+    /**
+     * Calculates fee based on the information in the FeeRules class. <br>
+     * @param feeRules set of fee rules.
+     * @return fee values based on the given fee rules
+     * @throws Exception throw an exception if transport is either scooter or bike and
+     * if weather conditions are not suitable for the scooter/bike delivery.
+     */
     public String calculateFee(FeeRules feeRules) throws Exception {
-        String sql1 = "SELECT * FROM weather_station WHERE name = '" + feeRules.getRegion() + "' LIMIT 1";
-        PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
-        ResultSet weatherStationInfo = preparedStatement1.executeQuery();
-
-        String sql2 = "SELECT * FROM business_rules WHERE location = '" + feeRules.getRegion() + "'";
-        PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
-        ResultSet feeCalculationRules = preparedStatement2.executeQuery();
-
+        // Request weather conditions from the DB, table weather_stations
+        ResultSet weatherStationInfo = readFromDB(
+                "SELECT * FROM weather_station WHERE name = '" + feeRules.getRegion() + "' LIMIT 1");
+        // Request fee calculation rules from the DB, table business_rules
+        ResultSet feeCalculationRules = readFromDB(
+                "SELECT * FROM business_rules WHERE location = '" + feeRules.getRegion() + "'");
 
         double fee = 0;
 
+        /* Column Number   Column names in BUSINESS_RULES table   Column names in WEATHER_STATIONS table
+         * --------------------------------------------------------------------------------------------
+         *       1         LOCATION                               WMO_CODE
+         *       2         RBF_CAR                                NAME
+         *       3         RBF_SCOOTER                            AIR_TEMPERATURE
+         *       4         RBF_BIKE                               WIND_SPEED
+         *       5         ATEF_TEMPERATURE                       WEATHER_PHENOMENON
+         *       6         ATEF_TEMPERATURE_MIN                   TIMESTAMP
+         *       7         ATEF_FEE
+         *       8         ATEF_FEE_MAX
+         *       9         WSEF_SPEED
+         *      10         WSEF_SPEED_MAX
+         *      11  	   WSEF_FEE
+         *      12         WPEF_SNOW_FEE
+         *      13         WPEF_RAIN_FEE
+         */
+
         if (feeRules.getTransport().equalsIgnoreCase("car")) {
-            return feeCalculationRules.getString(1);
+            return feeCalculationRules.getString("RBF_CAR");
         }
-        else if (feeRules.getTransport().equalsIgnoreCase("scooter")) {
-            if (weatherStationInfo.getDouble(3) > feeCalculationRules.getDouble(9) ||
-                    weatherStationInfo.getString(4).equalsIgnoreCase("glaze") ||
-                    weatherStationInfo.getString(4).equalsIgnoreCase("hale") ||
-                    weatherStationInfo.getString(4).equalsIgnoreCase("thunder")) {
-                throw new Exception("Usage of selected vehicle type is forbidden");
-            }
+        else {
             // Determine base fee (scooter or bike)
             if (feeRules.getTransport().equalsIgnoreCase("scooter"))
-                fee += feeCalculationRules.getDouble(2);
+                fee += feeCalculationRules.getDouble("RBF_SCOOTER");
             else
-                fee += feeCalculationRules.getDouble(3);
+                fee += feeCalculationRules.getDouble("RBF_BIKE");
 
-            // air temperature (ATEF) extra fee
-            if (weatherStationInfo.getDouble(2) < feeCalculationRules.getDouble(5))
-                fee += feeCalculationRules.getDouble(7);
-            else if (weatherStationInfo.getDouble(2) < feeCalculationRules.getDouble(4))
-                fee += feeCalculationRules.getDouble(6);
+            // If selected vehicle is either scooter or bike and weather conditions are too sever - throw an exception
+            if (feeCalculationRules.getDouble("WSEF_SPEED_MAX") < weatherStationInfo.getDouble("WIND_SPEED") ||
+                    weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("glaze") ||
+                    weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("hale") ||
+                    weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("thunder")) {
+                throw new Exception("Usage of selected vehicle type is forbidden");
+            }
 
-            // wind speed (WSEF) extra fee
-            if (weatherStationInfo.getDouble(3) > feeCalculationRules.getDouble(8))
-                fee += feeCalculationRules.getDouble(7);
+            // Adding air temperature extra fee (ATEF) if required conditions are met
+            if (feeCalculationRules.getDouble("ATEF_TEMPERATURE_MIN") < weatherStationInfo.getDouble("AIR_TEMPERATURE") )
+                fee += feeCalculationRules.getDouble("ATEF_FEE_MAX");
+            else if (weatherStationInfo.getDouble("ATEF_TEMPERATURE") < feeCalculationRules.getDouble("AIR_TEMPERATURE"))
+                fee += feeCalculationRules.getDouble("ATEF_FEE");
 
-            // weather phenomenon (WPEF) extra fee
-            if (weatherStationInfo.getString(4).equalsIgnoreCase("snow") ||
-                    weatherStationInfo.getString(4).equalsIgnoreCase("sleet"))
-                fee += feeCalculationRules.getDouble(11);
-            if (weatherStationInfo.getString(4).equalsIgnoreCase("snow") ||
-                    weatherStationInfo.getString(4).equalsIgnoreCase("sleet"))
-                fee += feeCalculationRules.getDouble(12);
+            // Adding wind speed extra fee (WSEF) if required conditions are met
+            if (feeCalculationRules.getDouble("WSEF_SPEED") < weatherStationInfo.getDouble("WIND_SPEED"))
+                fee += feeCalculationRules.getDouble("WSEF_FEE");
+
+            // Adding weather phenomenon extra fee related with snow or sleet (WPEF) if required conditions are met
+            if (weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("snow") ||
+                    weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("sleet"))
+                fee += feeCalculationRules.getDouble("WPEF_SNOW_FEE");
+
+            // Adding weather phenomenon extra fee related with snow or sleet (WPEF) if required conditions are met
+            if (weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("rain"))
+                fee += feeCalculationRules.getDouble("WPEF_RAIN_FEE");
         }
 
         return String.valueOf(fee);
     }
+
+    private ResultSet readFromDB(String sql) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet;
+    }
+
+
 
     public String updateFeeRules(FeeRules fee) {
         return null;

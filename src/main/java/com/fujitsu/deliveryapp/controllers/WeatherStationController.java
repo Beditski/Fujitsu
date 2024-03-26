@@ -25,7 +25,7 @@ public class WeatherStationController {
      * Constructor of WeatherStationController controller-class.
      * @param weatherDataUrl url for the request from Estonian Environment Agency.
      * @param weatherStationDAO Weather Station Data Access Object.
-     * @param restTemplate tool for making a HTTP request.
+     * @param restTemplate tool for making an HTTP request.
      */
     @Autowired
     private WeatherStationController(
@@ -42,7 +42,9 @@ public class WeatherStationController {
      */
     @Scheduled(cron = "* * * * * *")
     private void fetchWeatherData() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        // Parse page into String
         String weatherData = this.restTemplate.getForObject(weatherDataUrl, String.class);
+        // If result not null - then update weather info
         if (weatherData != null) {
             weatherStationDAO.updateWeatherData(parseWeatherData(weatherData));
         }
@@ -50,7 +52,8 @@ public class WeatherStationController {
 
     /**
      * Takes parsed to string content of XML file with weather stations' information, processes it and
-     * returns the list of WeatherStation classes, which contains the following weather stations: Tallinn-Harku, Tartu-Tõravere, Pärnu. <br>
+     * returns the list of WeatherStation classes, which contains the following weather stations:
+     * Tallinn-Harku, Tartu-Tõravere, Pärnu. <br>
      * @param weatherData parsed XML file which contains weather stations' information.
      * @return WeatherStation list.
      */
