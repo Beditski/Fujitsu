@@ -9,8 +9,7 @@ public class WeatherStation {
     long timestamp;
 
     /**
-     * Constructor for Weather Station class. <br>
-     *
+     * Constructor for Weather Station class.
      * @param nameOfTheStation name of the station.
      * @param wmoCode WMO code of the station.
      * @param airTemperature air template.
@@ -28,8 +27,8 @@ public class WeatherStation {
     }
 
     /**
-     * Returns information about weather station at corresponding timestamp in the steing format. <br>
-     * @return station's info
+     * Returns information about weather station at corresponding timestamp in the string format.
+     * @return station's info.
      */
     @Override
     public String toString() {

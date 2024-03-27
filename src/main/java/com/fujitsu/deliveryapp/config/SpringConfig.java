@@ -14,9 +14,6 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
-/**
- * @author Neil Alishev
- */
 @Configuration
 @ComponentScan("com.fujitsu.deliveryapp")
 @EnableScheduling

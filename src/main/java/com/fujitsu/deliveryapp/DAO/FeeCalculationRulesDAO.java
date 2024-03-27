@@ -8,54 +8,70 @@ import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
+/**
+ * Data Access Object for requesting data in regard to calculating fees.
+ */
 @Component
-public class FeeDAO {
+public class FeeCalculationRulesDAO {
     private static String dataBaseDriver;
     private static String dataBaseUrl;
     private static String dataBaseUsername;
     private static String dataBasePassword;
     private static Connection connection;
 
-    public FeeDAO(@Value("org.h2.Driver") String dataBaseDriver,
-                  @Value("jdbc:h2:~/test;AUTO_SERVER=TRUE") String dataBaseUrl,
-                  @Value("sa") String dataBaseUsername,
-                  @Value("") String dataBasePassword) {
-        FeeDAO.dataBaseDriver = dataBaseDriver;
-        FeeDAO.dataBaseUrl = dataBaseUrl;
-        FeeDAO.dataBaseUsername = dataBaseUsername;
-        FeeDAO.dataBasePassword = dataBasePassword;
+    /**
+     * Constructor for FeeCalculationRulesDAO. Method injects values for DB driver, url, username and password.
+     * @param dataBaseDriver driver.
+     * @param dataBaseUrl DB url.
+     * @param dataBaseUsername DB username.
+     * @param dataBasePassword DB password.
+     */
+    public FeeCalculationRulesDAO(@Value("org.h2.Driver") String dataBaseDriver,
+                                  @Value("jdbc:h2:~/test;AUTO_SERVER=TRUE") String dataBaseUrl,
+                                  @Value("sa") String dataBaseUsername,
+                                  @Value("") String dataBasePassword) {
+        FeeCalculationRulesDAO.dataBaseDriver = dataBaseDriver;
+        FeeCalculationRulesDAO.dataBaseUrl = dataBaseUrl;
+        FeeCalculationRulesDAO.dataBaseUsername = dataBaseUsername;
+        FeeCalculationRulesDAO.dataBasePassword = dataBasePassword;
 
     }
 
+    /**
+     * FeeCalculationRulesDAO init-method. Creates connection with the DB.
+     */
     @PostConstruct
     private void createDataBaseConnection() {
         try {
-            Class.forName(FeeDAO.dataBaseDriver);
+            Class.forName(FeeCalculationRulesDAO.dataBaseDriver);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            FeeDAO.connection = DriverManager.getConnection(dataBaseUrl, dataBaseUsername, dataBasePassword);
+            FeeCalculationRulesDAO.connection = DriverManager.getConnection(dataBaseUrl, dataBaseUsername, dataBasePassword);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * FeeCalculationRulesDAO destroy-method. Closes connection with the DB.
+     */
     @PreDestroy
     private void closeDataBaseConnection() throws SQLException {
-        FeeDAO.connection.close();
+        FeeCalculationRulesDAO.connection.close();
     }
 
     /**
      * Sets rules for calculating delivery fee. Non specified parameters are taken from the Data Base (BUSINESS_RULES table).
-     * @param feeCalculationRules - object which contains specified in request parameters.
-     * @throws SQLException
+     * @param feeCalculationRules - object which contains specified request parameters.
+     * @throws SQLException throws exception if somthing goes wrong...
      */
     public void setFeeCalculationRules(FeeCalculationRules feeCalculationRules) throws SQLException {
         // Request fee calculation rules from the DB, table business_rules
         ResultSet feeCalculationRulesResultSet = readFromDB(
-                "SELECT * FROM business_rules WHERE location = '" + feeCalculationRules.getRegion() + "'");
+                "SELECT * FROM business_rules WHERE location = '" + feeCalculationRules.getWeatherStationName() + "'");
 
         // Add RBF values from DB to feeCalculationRules if it was not specified during the request
         if (feeCalculationRules.getRbfCar() == null) {
@@ -82,7 +98,6 @@ public class FeeDAO {
             feeCalculationRules.setAtefFeeMax(feeCalculationRulesResultSet.getDouble("ATEF_FEE_MAX"));
         }
 
-
         // Add WSEF values from DB to feeCalculationRules if it was not specified during the request
         if (feeCalculationRules.getWsefSpeed() == null) {
             feeCalculationRules.setWsefSpeed(feeCalculationRulesResultSet.getDouble("WSEF_SPEED"));
@@ -102,24 +117,24 @@ public class FeeDAO {
             feeCalculationRules.setWpefRainFee(feeCalculationRulesResultSet.getDouble("WPEF_RAIN_FEE"));
         }
 
-        System.out.println(feeCalculationRules);
+        // Set timestamp if it was not specified
+        if (feeCalculationRules.getTimestamp() == null) {
+            feeCalculationRules.setTimestamp(System.currentTimeMillis() / 1000);
+        }
     }
 
     /**
-     * Calculates fee based on the information in the FeeCalculationRules class. <br>
+     * Calculates fee based on the information in the FeeCalculationRules class.
      * @param feeCalculationRules set of fee rules.
      * @return fee values based on the given fee rules
      * @throws Exception throw an exception if transport is either scooter or bike and
      * if weather conditions are not suitable for the scooter/bike delivery.
      */
     public String calculateFee(FeeCalculationRules feeCalculationRules) throws Exception {
-        // Request weather conditions from the DB, table weather_stations
+        // Request weather condition from the DB (WEATHER_STATION table).
         ResultSet weatherStationInfo = readFromDB(
-                "SELECT * FROM weather_station WHERE name = '" + feeCalculationRules.getRegion() + "' LIMIT 1");
-        // Request fee calculation rules from the DB, table business_rules
-        ResultSet feeCalculationRulesResultSet = readFromDB(
-                "SELECT * FROM business_rules WHERE location = '" + feeCalculationRules.getRegion() + "'");
-
+                "SELECT * FROM weather_station WHERE name = '" + feeCalculationRules.getWeatherStationName() +
+                        "' ORDER BY ABS(timestamp - " + feeCalculationRules.getTimestamp() +") ASC LIMIT 1;");
         double fee = 0;
 
         /* Column Number   Column names in BUSINESS_RULES table   Column names in WEATHER_STATIONS table
@@ -139,8 +154,9 @@ public class FeeDAO {
          *      13         WPEF_RAIN_FEE
          */
 
+
         if (feeCalculationRules.getTransport().equalsIgnoreCase("car")) {
-            return feeCalculationRules.getRbfCar().toString();
+            return feeCalculationRules.getRbfCar().toString(); // Return RBF for the car.
         }
         else {
             // Determine base fee (scooter or bike)
@@ -181,19 +197,21 @@ public class FeeDAO {
     }
 
     /**
-     * Takes as String with sql SELECT request, prepares it as a statement and returns a ResultSet.
+     * Takes sql command as String, prepares it as a statement and returns a ResultSet.
      * @param sql string with sql command.
      * @return resultSet with requested data.
-     * @throws SQLException
+     * @throws SQLException throws if connection is broken or sql command is invalid.
      */
     private ResultSet readFromDB(String sql) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        return resultSet;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-
 
     public String updateFeeRules(FeeCalculationRules fee) {
         return null;
@@ -203,17 +221,3 @@ public class FeeDAO {
 
     }
 }
-//    CREATE TABLE business_rules (
-//        location varchar(20) NOT NULL,
-//    RBF_car numeric NOT NULL,
-//    RBF_scooter numeric NOT NULL,
-//    RBF_bike  numeric NOT NULL,
-//    ATEF_temperature numeric NOT NULL,
-//    ATEF_price numeric NOT NULL,
-//    ATEF_price_max numeric NOT NULL,
-//    WSEF_speed numeric NOT NULL,
-//    WSEF_speed_max numeric NOT NULL,
-//    WSEF_speed_price numeric NOT NULL,
-//    WPEF_snow_price numeric NOT NULL,
-//    WPEF_rain_price numeric NOT NULL
-//)

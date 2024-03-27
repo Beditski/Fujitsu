@@ -1,5 +1,7 @@
-package com.fujitsu.deliveryapp.projectExceptions.controllers;
+package com.fujitsu.deliveryapp.projectExceptions.controllers.FeeCalculationRulesController;
 
-public class InvalidCityParameter extends Exception {
+import java.security.InvalidAlgorithmParameterException;
+
+public class InvalidCityParameterException extends InvalidAlgorithmParameterException {
 
 }

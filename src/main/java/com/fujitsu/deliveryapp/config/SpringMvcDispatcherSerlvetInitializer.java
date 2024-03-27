@@ -10,8 +10,8 @@ public class SpringMvcDispatcherSerlvetInitializer extends AbstractAnnotationCon
     }
 
     /**
-     * Get spring project configuration
-     * @return SpringConfig class
+     * Get spring project configuration.
+     * @return SpringConfig class.
      */
     @Override
     protected Class<?>[] getServletConfigClasses() {
@@ -19,7 +19,7 @@ public class SpringMvcDispatcherSerlvetInitializer extends AbstractAnnotationCon
     }
 
     /**
-     * Send all user's requests on dispatcher servlet
+     * Send all user's requests on dispatcher servlet.
      * @return ...
      */
     @Override

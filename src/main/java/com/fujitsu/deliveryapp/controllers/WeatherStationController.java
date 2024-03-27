@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Controller for implementing weather stations' info cronjob request.
+ */
 @Controller
 public class WeatherStationController {
 
@@ -38,7 +41,7 @@ public class WeatherStationController {
 
     /**
      * Requests weather data from the weather portal of the Estonian Environment Agency with the frequency of
-     * every hour, 15 minutes after a full hour (HH:15:00) and then adds it to the database. <br>
+     * every hour, 15 minutes after a full hour (HH:15:00) and then adds it to the database.
      */
     @Scheduled(cron = "* * * * * *")
     private void fetchWeatherData() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -53,14 +56,16 @@ public class WeatherStationController {
     /**
      * Takes parsed to string content of XML file with weather stations' information, processes it and
      * returns the list of WeatherStation classes, which contains the following weather stations:
-     * Tallinn-Harku, Tartu-Tõravere, Pärnu. <br>
+     * Tallinn-Harku, Tartu-Tõravere, Pärnu.Each weatherStatio class contains: wmo code, name, air
+     * temperature, wind speed, weather phenomenon, timestamp.
+     *
      * @param weatherData parsed XML file which contains weather stations' information.
      * @return WeatherStation list.
      */
     private static List<WeatherStation> parseWeatherData(String weatherData) {
         /*
          * Remove all new line characters, tabulations and tabulation-like whitespace characters and
-         * </station> substrings. Removal of </station> allows later on to split the string easily into
+         * </station> substrings. Removal of </station> allows to split the string easily later on into
          * the array of strings, where each string contains weather station's info and information about
          * the weather conditions in the location of this station.
          */
@@ -83,6 +88,9 @@ public class WeatherStationController {
 
         List<WeatherStation> weatherStationList = new ArrayList<>();
 
+        /*
+         * Iterate over all weather stations. If current weather is in Tallinn, Tartu or Pärnu - add its information to the DB.
+         */
         for (String station : weatherStations) {
             if (station.contains("<name>Tallinn-Harku<name>") || station.contains("<name>Tartu-Tõravere<name>") || station.contains("<name>Pärnu<name>")) {
                 WeatherStation weatherStation = new WeatherStation(
@@ -101,7 +109,7 @@ public class WeatherStationController {
     }
 
     /**
-     * Returns the first substring of the input between two specified delimiters. <br>
+     * Returns the first substring of the input between two specified delimiters.
      * @param content text string.
      * @param firstDelimiter first delimiter.
      * @param secondDelimiter second delimiter.
@@ -115,7 +123,7 @@ public class WeatherStationController {
     }
 
     /**
-     * Returns the first substring of the input between two identical delimiters. <br>
+     * Returns the first substring of the input between two identical delimiters.
      * @param content string of content.
      * @param delimiter delimiter.
      * @return the first substring between two delimiters
