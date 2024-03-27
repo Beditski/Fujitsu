@@ -4,6 +4,7 @@ package com.fujitsu.deliveryapp.models;
  * Model for storing rules for calculating delivery fee.
  */
 public class FeeCalculationRules {
+    private final String city;
     private final String weatherStationName;
     private final String transport;
 
@@ -28,28 +29,30 @@ public class FeeCalculationRules {
     /**
      * Constructor for FeeCalculationRules model.
      *
+     * @param city
      * @param weatherStationName name of the city for the delivery.
-     * @param transport type of delivery transport.
-     * @param rbfCar regional base fee for the car.
-     * @param rbfBike regional base fee for the bike.
-     * @param rbfScooter regional base fee for scooter.
-     * @param atefTemperature air temperature boundary for adding extra fee in case of bike/scooter delivery.
+     * @param transport          type of delivery transport.
+     * @param rbfCar             regional base fee for the car.
+     * @param rbfBike            regional base fee for the bike.
+     * @param rbfScooter         regional base fee for scooter.
+     * @param atefTemperature    air temperature boundary for adding extra fee in case of bike/scooter delivery.
      * @param atefTemperatureMin air temperature boundary for adding the highest extra fee in case of bike/scooter delivery.
-     * @param atefFee fee for low air temperature in case of bike/scooter delivery.
-     * @param atefFeeMax maximal fee for low air temperature in case of bike/scooter delivery
-     * @param wsefSpeed wind speed boundary for adding extra fee in case of bike/scooter delivery.
-     * @param wsefSpeedMax maximal allowed wind speed for bike/scooter delivery.
-     * @param wsefFee fee for wind speed in case of bike/scooter delivery.
+     * @param atefFee            fee for low air temperature in case of bike/scooter delivery.
+     * @param atefFeeMax         maximal fee for low air temperature in case of bike/scooter delivery
+     * @param wsefSpeed          wind speed boundary for adding extra fee in case of bike/scooter delivery.
+     * @param wsefSpeedMax       maximal allowed wind speed for bike/scooter delivery.
+     * @param wsefFee            fee for wind speed in case of bike/scooter delivery.
      * @param wpefSnowOrSleetFee fee for bike/scooter delivery in snow or sleet.
-     * @param wpefSnowRainFee fee for bike/scooter delivery in rain.
-     * @param timestamp fee for delivery at specified time.
+     * @param wpefSnowRainFee    fee for bike/scooter delivery in rain.
+     * @param timestamp          fee for delivery at specified time.
      */
-    public FeeCalculationRules(String weatherStationName, String transport,
+    public FeeCalculationRules(String city, String weatherStationName, String transport,
                                Double rbfCar, Double rbfBike, Double rbfScooter,
                                Double atefTemperature, Double atefTemperatureMin, Double atefFee, Double atefFeeMax,
                                Double wsefSpeed, Double wsefSpeedMax, Double wsefFee,
                                Double wpefSnowOrSleetFee, Double wpefSnowRainFee,
                                Long timestamp) {
+        this.city = city;
         this.weatherStationName = weatherStationName;
         this.transport = transport;
         this.rbfCar = rbfCar;
@@ -65,6 +68,14 @@ public class FeeCalculationRules {
         this.wpefSnowOrSleetFee = wpefSnowOrSleetFee;
         this.wpefSnowRainFee = wpefSnowRainFee;
         this.timestamp = timestamp;
+    }
+
+    /**
+     * Getter for city name.
+     * @return city name.
+     */
+    public String getCity() {
+        return this.city;
     }
 
     /**

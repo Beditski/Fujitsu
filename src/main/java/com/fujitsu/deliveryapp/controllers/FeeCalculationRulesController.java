@@ -93,20 +93,27 @@ public class FeeCalculationRulesController {
          * Controls whether all fee parameters and wind speed parameters are
          * positive, if not throws NonPositiveArgumentException.
          */
-        if (rbfCar <= 0 || rbfScooter <= 0 || rbfBike <=0 ||
-            atefTemperatureFee <= 0 || atefTemperatureFeeMax <= 0 ||
-            wsefSpeed <= 0 || wsefSpeedMax <= 0 || wsefFee <= 0 ||
-            wpefSnowOrSleetFee <= 0 || wpefSnowRainFee <= 0) {
+        if (rbfCar != null && rbfCar <= 0 ||
+                rbfScooter != null && rbfScooter <= 0 ||
+                rbfBike != null && rbfBike <= 0 ||
+                atefTemperatureFee != null && atefTemperatureFee <= 0 ||
+                atefTemperatureFeeMax != null && atefTemperatureFeeMax <= 0 ||
+                wsefSpeed != null && wsefSpeed <= 0 ||
+                wsefSpeedMax != null && wsefSpeedMax <= 0 ||
+                wsefFee != null && wsefFee <= 0 ||
+                wpefSnowOrSleetFee != null && wpefSnowOrSleetFee <= 0 ||
+                wpefSnowRainFee != null && wpefSnowRainFee <= 0) {
             throw new NonPositiveArgumentException();
         }
 
         // Create model for calculating fee rules.
-        FeeCalculationRules fee = new FeeCalculationRules(weatherStation, transport,
+        FeeCalculationRules fee = new FeeCalculationRules(city, weatherStation, transport,
                 rbfCar, rbfBike, rbfScooter,
                 atefTemperature, atefTemperatureMin, atefTemperatureFee, atefTemperatureFeeMax,
                 wsefSpeed, wsefSpeedMax,wsefFee,
                 wpefSnowOrSleetFee, wpefSnowRainFee,
-                dateFormat.getCalendar().getTimeInMillis() / 1000);
+                // If date format is null - add null, if not - convert to timestamp and add
+                dateFormat == null ? null : dateFormat.getCalendar().getTimeInMillis() / 1000);
 
         // Requesting and setting absent parameters in fee calculation.
         feeCalculationRulesDAO.setFeeCalculationRules(fee);

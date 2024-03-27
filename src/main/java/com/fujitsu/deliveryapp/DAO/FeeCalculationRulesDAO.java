@@ -71,7 +71,7 @@ public class FeeCalculationRulesDAO {
     public void setFeeCalculationRules(FeeCalculationRules feeCalculationRules) throws SQLException {
         // Request fee calculation rules from the DB, table business_rules
         ResultSet feeCalculationRulesResultSet = readFromDB(
-                "SELECT * FROM business_rules WHERE location = '" + feeCalculationRules.getWeatherStationName() + "'");
+                "SELECT * FROM business_rules WHERE location = '" + feeCalculationRules.getCity() + "'");
 
         // Add RBF values from DB to feeCalculationRules if it was not specified during the request
         if (feeCalculationRules.getRbfCar() == null) {

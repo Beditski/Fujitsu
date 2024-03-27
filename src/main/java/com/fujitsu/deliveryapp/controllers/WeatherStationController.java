@@ -104,7 +104,6 @@ public class WeatherStationController {
                 weatherStationList.add(weatherStation);
             }
         }
-
         return weatherStationList;
     }
 
