@@ -1,4 +1,4 @@
-package com.fujitsu.deliveryapp.DAO;
+package com.fujitsu.deliveryapp.DAO.WeatherStationDAO;
 
 import java.sql.*;
 import java.util.List;

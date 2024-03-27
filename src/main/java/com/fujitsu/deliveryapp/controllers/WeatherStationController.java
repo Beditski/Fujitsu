@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
-import com.fujitsu.deliveryapp.DAO.WeatherStationDAO;
+import com.fujitsu.deliveryapp.DAO.WeatherStationDAO.WeatherStationDAO;
 import com.fujitsu.deliveryapp.models.WeatherStation;
 
 import java.sql.SQLException;

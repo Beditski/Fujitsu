@@ -1,6 +1,6 @@
 package com.fujitsu.deliveryapp.controllers;
 
-import com.fujitsu.deliveryapp.DAO.FeeCalculationRulesDAO;
+import com.fujitsu.deliveryapp.DAO.FeeCalculationRulesDAO.FeeCalculationRulesDAO;
 import com.fujitsu.deliveryapp.models.FeeCalculationRules;
 import com.fujitsu.deliveryapp.projectExceptions.controllers.FeeCalculationRulesController.InvalidCityParameterException;
 import com.fujitsu.deliveryapp.projectExceptions.controllers.FeeCalculationRulesController.NonPositiveArgumentException;
@@ -77,6 +77,13 @@ public class FeeCalculationRulesController {
 
                           @RequestParam(value = "dateformat", required = false) DateFormat dateFormat
     ) throws Exception {
+        city = switch (city.toLowerCase()) {
+            case "tallinn" -> "Tallinn";
+            case "tartu" -> "Tartu";
+            case "pärnu" -> "Pärnu";
+            default -> throw new InvalidCityParameterException();
+        };
+
         /*
          * Determines weather station's name, handles case error,
          * throw InvalidCityParameterException exception if wrong city
@@ -107,7 +114,8 @@ public class FeeCalculationRulesController {
         }
 
         // Create model for calculating fee rules.
-        FeeCalculationRules fee = new FeeCalculationRules(city, weatherStation, transport,
+        FeeCalculationRules fee = new FeeCalculationRules(
+                city, weatherStation, transport,
                 rbfCar, rbfBike, rbfScooter,
                 atefTemperature, atefTemperatureMin, atefTemperatureFee, atefTemperatureFeeMax,
                 wsefSpeed, wsefSpeedMax,wsefFee,
@@ -119,5 +127,29 @@ public class FeeCalculationRulesController {
         feeCalculationRulesDAO.setFeeCalculationRules(fee);
         System.out.println(this.feeCalculationRulesDAO.calculateFee(fee));
         return "fee/calculator";
+    }
+
+    @GetMapping("/rules")
+    private String setRules(@RequestParam(value = "city") String city,
+
+                            @RequestParam(value = "rbfCar", required = false) Double rbfCar,
+                            @RequestParam(value = "rbfScooter", required = false) Double rbfScooter,
+                            @RequestParam(value = "rbfBike", required = false) Double rbfBike,
+
+                            @RequestParam(value = "atefTemperature", required = false) Double atefTemperature,
+                            @RequestParam(value = "atefTemperatureMin", required = false) Double atefTemperatureMin,
+                            @RequestParam(value = "atefTemperatureFee", required = false) Double atefTemperatureFee,
+                            @RequestParam(value = "atefTemperatureFeeMax", required = false) Double atefTemperatureFeeMax,
+
+                            @RequestParam(value = "wsefSpeed", required = false) Double wsefSpeed,
+                            @RequestParam(value = "wsefSpeedMax", required = false) Double wsefSpeedMax,
+                            @RequestParam(value = "wsefFee", required = false) Double wsefFee,
+
+                            @RequestParam(value = "wpefSnowOrSleetFee", required = false) Double wpefSnowOrSleetFee,
+                            @RequestParam(value = "wpefSnowRainFee", required = false) Double wpefSnowRainFee
+    ) {
+
+
+        return "fee/rules";
     }
 }
