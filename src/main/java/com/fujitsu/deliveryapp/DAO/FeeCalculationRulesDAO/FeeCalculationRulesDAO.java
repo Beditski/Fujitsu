@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
-import static com.fujitsu.deliveryapp.DAO.FeeCalculationRulesDAO.RulesSetterModel.*;
+import static com.fujitsu.deliveryapp.DAO.FeeCalculationRulesDAO.FeeCalculationRulesSetterDAO.*;
 
 /**
  * Data Access Object for requesting data in regard to calculating fees.
@@ -67,39 +67,6 @@ public class FeeCalculationRulesDAO {
     }
 
     /**
-     * Sets rules for calculating delivery fee. Non specified parameters are taken from the
-     * Data Base (BUSINESS_RULES table).
-     * @param feeCalculationRules - object which contains specified request parameters.
-     * @throws SQLException throws exception if somthing goes wrong...
-     */
-    public void setFeeCalculationRules(FeeCalculationRules feeCalculationRules) throws SQLException {
-        // Request fee calculation rules from the DB, table business_rules
-        ResultSet feeCalculationRulesResultSet = readFromDB(
-                "SELECT * FROM business_rules WHERE location = '" + feeCalculationRules.getCity() + "'");
-
-        setRules(feeCalculationRules, feeCalculationRulesResultSet);
-    }
-
-
-    /**
-     * Calculates fee based on the information in the FeeCalculationRules class.
-     * @param feeCalculationRules set of fee rules.
-     * @return fee values based on the given fee rules
-     * @throws Exception throw an exception if transport is either scooter or bike and
-     * if weather conditions are not suitable for the scooter/bike delivery or if there
-     * is a problem with DB.
-     */
-    public String calculateFee(FeeCalculationRules feeCalculationRules) throws Exception {
-        // Request weather condition from the DB (WEATHER_STATION table).
-        ResultSet weatherStationInfo = readFromDB(
-                "SELECT * FROM weather_station WHERE name = '" + feeCalculationRules.getWeatherStationName() +
-                        "' ORDER BY ABS(timestamp - " + feeCalculationRules.getTimestamp() +") ASC LIMIT 1;");
-
-        return FeeCalculation.calculateFee(feeCalculationRules, weatherStationInfo);
-    }
-
-
-    /**
      * Takes sql command as String, prepares it as a statement and returns a ResultSet.
      * @param sql string with sql command.
      * @return resultSet with requested data.
@@ -116,7 +83,40 @@ public class FeeCalculationRulesDAO {
         }
     }
 
-    public String updateFeeRules(FeeCalculationRules fee) {
+
+    /**
+     * Sets rules for calculating delivery fee. Non specified parameters are taken from the
+     * Data Base (BUSINESS_RULES table).
+     * @param feeCalculationRules - object which contains specified request parameters.
+     * @throws SQLException throws exception if somthing goes wrong...
+     */
+    public void setFeeCalculationRules(FeeCalculationRules feeCalculationRules) throws SQLException {
+        // Request fee calculation rules from the DB, table business_rules
+        ResultSet feeCalculationRulesResultSet = readFromDB(
+                "SELECT * FROM business_rules WHERE location = '" + feeCalculationRules.getCity() + "'");
+
+        setRules(feeCalculationRules, feeCalculationRulesResultSet);
+    }
+
+    /**
+     * Calculates fee based on the information in the FeeCalculationRules class.
+     * @param feeCalculationRules set of fee rules.
+     * @return fee values based on the given fee rules
+     * @throws Exception throw an exception if transport is either scooter or bike and
+     * if weather conditions are not suitable for the scooter/bike delivery or if there
+     * is a problem with DB.
+     */
+    public String calculateFee(FeeCalculationRules feeCalculationRules) throws Exception {
+        // Request weather condition from the DB (WEATHER_STATION table).
+        ResultSet weatherStationInfo = readFromDB(
+                "SELECT * FROM weather_station WHERE name = '" + feeCalculationRules.getWeatherStationName() +
+                        "' ORDER BY ABS(timestamp - " + feeCalculationRules.getTimestamp() +") ASC LIMIT 1;");
+
+        return FeeCalculationDAO.calculateFee(feeCalculationRules, weatherStationInfo);
+    }
+
+
+    public String updateFeeRules(FeeCalculationRules feeCalculationRules) {
         return null;
     }
 

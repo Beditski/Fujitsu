@@ -19,7 +19,6 @@
       <scope>test</scope>
     </dependency>
 
-
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -33,7 +32,6 @@
       <artifactId>spring-beans</artifactId>
       <version>6.1.5</version>
     </dependency>
-
 
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
     <dependency>
@@ -77,8 +75,6 @@
       <version>5.6.15.Final</version>
     </dependency>
 
-
-
     <!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
@@ -115,12 +111,7 @@
       <version>2.2.224</version>
       <scope>runtime</scope>
     </dependency>
-
-
-
   </dependencies>
-
-
 
   <build>
     <finalName>Fujitsu</finalName>
