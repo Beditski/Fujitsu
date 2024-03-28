@@ -1,4 +1,4 @@
-Fujitsu Java Programming Trial Task - REST interface Documentation
+# Fujitsu Java Programming Trial Task - REST interface Documentation
 
 In order to start the server download download and save this project in intelij,
 hoose edit configuration and then add tomcat server configuration (choose apache-tomcat-10.19.1).
