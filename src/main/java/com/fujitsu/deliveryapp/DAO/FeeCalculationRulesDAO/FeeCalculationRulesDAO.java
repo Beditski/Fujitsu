@@ -71,9 +71,8 @@ public class FeeCalculationRulesDAO {
      * Takes sql command as String, prepares it as a statement and returns a ResultSet.
      * @param sql string with sql command.
      * @return resultSet with requested data.
-     * @throws SQLException throws if connection is broken or sql command is invalid.
      */
-    private ResultSet readFromDB(String sql) throws SQLException {
+    private ResultSet readFromDB(String sql) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -83,7 +82,6 @@ public class FeeCalculationRulesDAO {
             throw new RuntimeException(e);
         }
     }
-
 
     /**
      * Sets rules for calculating delivery fee. Non specified parameters are taken from the
@@ -116,13 +114,36 @@ public class FeeCalculationRulesDAO {
         return FeeCalculationDAO.calculateFee(feeCalculationRules, weatherStationInfo);
     }
 
+
+    /**
+     * Reads all the data from BUSINESS_RULES and parses it to string.
+     * @return BUSINESS_RULES table content in string format
+     * @throws SQLException in case something goes wrong...
+     */
+    public String getFeeCalculationRules() throws SQLException {
+        ResultSet resultSet = readFromDB("SELECT * FROM BUSINESS_RULES");
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        StringBuilder result = new StringBuilder();
+
+        do {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) result.append(", ");
+                String columnValue = resultSet.getString(i);
+                result.append(rsmd.getColumnName(i)).append(": ").append(columnValue);
+            }
+            result = new StringBuilder(result + "\n");
+        } while (resultSet.next());
+        return String.valueOf(result);
+    }
+
     /**
      * Sets new fee rules. If all rules in feeCalculationRules are null, then throw NullPointer exception.
      * @param feeCalculationRules set of fee rules.
      * @throws NullPointerException if all passed rules are nulls - throw an error.
      * @throws SQLException thrown if there is any problem related to DB connection or request.
      */
-    public void updateFeeRules(FeeCalculationRules feeCalculationRules) throws SQLException {
+    public void updateFeeCalculationRules(FeeCalculationRules feeCalculationRules) throws SQLException {
         String sql = "UPDATE BUSINESS_RULES SET ";
         if (feeCalculationRules.getRbfCar() != null) sql += "RBF_CAR = " + feeCalculationRules.getRbfCar() + ", ";
         if (feeCalculationRules.getRbfScooter() != null) sql += "RBF_SCOOTER = " + feeCalculationRules.getRbfScooter() + ", ";

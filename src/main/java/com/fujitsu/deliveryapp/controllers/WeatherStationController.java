@@ -46,7 +46,6 @@ public class WeatherStationController {
     private void fetchWeatherData() throws SQLException {
         // Parse page into String
         String weatherData = this.restTemplate.getForObject(weatherDataUrl, String.class);
-        System.out.println(weatherData);
         // If result not null - then update weather info
         if (weatherData != null) {
             weatherStationDAO.updateWeatherData(parseWeatherData(weatherData));
