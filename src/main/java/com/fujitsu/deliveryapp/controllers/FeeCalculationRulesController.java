@@ -9,8 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Controller for handling GET and POST request related to the fee calculation rules.
@@ -115,7 +122,7 @@ public class FeeCalculationRulesController {
      * @param wsefFee wind speed extra fee for bike and scooter delivery (optional).
      * @param wpefSnowOrSleetFee wind phenomenon (snow or sleet) extra fee for bike and scooter delivery (optional).
      * @param wpefSnowRainFee wind phenomenon (rain) extra fee for bike and scooter delivery (optional).
-     * @param dateFormat date and time for time moment, at which fee is wanted to be calculated (optional).
+     * @param dateTime date and time for time moment, at which fee is wanted to be calculated (optional).
      * @throws SQLException exception related with a sql request.
      * @throws UsageOfSelectedVehicleForbidden thrown when selected transport is either scooter or bike and weather is too sever.
      * @throws InvalidCityParameterException thrown when invalid city is passed as parameter.
@@ -140,7 +147,7 @@ public class FeeCalculationRulesController {
                           @RequestParam(value = "wpefSnowOrSleetFee", required = false) Double wpefSnowOrSleetFee,
                           @RequestParam(value = "wpefSnowRainFee", required = false) Double wpefSnowRainFee,
 
-                          @RequestParam(value = "dateformat", required = false) DateFormat dateFormat
+                          @RequestParam(value = "datetime", required = false) String dateTime
     ) throws SQLException, UsageOfSelectedVehicleForbidden, InvalidCityParameterException {
         // Handle case error
         city = getCityNam(city);
@@ -151,6 +158,9 @@ public class FeeCalculationRulesController {
             throw new NonPositiveArgumentException();
         }
 
+        // Create formatter for datetime
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm");
+
         // Create a model for calculating feeCalculationRules rules.
         FeeCalculationRules feeCalculationRules = new FeeCalculationRules(
                 city, weatherStation, transport,
@@ -158,8 +168,8 @@ public class FeeCalculationRulesController {
                 atefTemperature, atefTemperatureMin, atefTemperatureFee, atefTemperatureFeeMax,
                 wsefSpeed, wsefSpeedMax,wsefFee,
                 wpefSnowOrSleetFee, wpefSnowRainFee,
-                // If date format is null - add null, if not - convert to timestamp and add
-                dateFormat == null ? null : dateFormat.getCalendar().getTimeInMillis() / 1000);
+                // If datetime is null - add null, if not - convert to timestamp and add
+                dateTime == null ? null : LocalDateTime.parse(dateTime, formatter).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() / 1000);
 
         // Requesting and setting absent parameters in feeCalculationRules calculation.
         this.feeCalculationRulesDAO.setFeeCalculationRules(feeCalculationRules);
