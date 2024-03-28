@@ -38,25 +38,18 @@ This GET request has 2 mandatory parameters (`city` and  `transport`). For examp
  * `wpef_snow_rain_fee` - extra fee for bike or scooter delivery in rain.
  * `datetime` - this is date and time parameter. Must be in form yyyy-MM-dd_HH:mm
 
-Endpoint for requesting fee calculation rules
+Endpoint for requesting fee calculation rules: `http://localhost:8080/api/rules`. This GET request has no parameter.
 
-```
-http://localhost:8080/api/rules
-```
-
-This GET request has no parameter
-
-
-Endpoint for setting new fee calculation rules
-
-```
-http://localhost:8080/api/rules/new
-```
-
-This POST request has 1 mandatory parameters `city`, which specifies the city for which business rules will be cahnged. There are in total 12 diferent optional parameters for business (float value) rule calculations, the same as for calculating delivery fee. At least on parameter must be specified. Business rules with non-specified parameters will not be chaanged.
+Endpoint for setting new fee calculation rules: `http://localhost:8080/api/rules/new`. This POST request has 1 mandatory parameters `city`, which specifies the 
+city for which business rules will be cahnged. There are in total 12 diferent optional parameters for business (float value) rule calculations, the same as for 
+calculating delivery fee. At least on parameter must be specified. Business rules with non-specified parameters will not be chaanged.
 
 
 
+
+Endpoint for setting new fee calculation rules: `http://localhost:8080/api/rules/new`. Takes 3 optional request parameters. If all parameters are nulls - all business 
+rules will be reset to default values. If at least one parameter is not null, null parameters will not be reset to default values. All true parameters will cause reset
+to default values for business rules in the corresponding city.
 
 
 
