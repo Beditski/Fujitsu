@@ -1,19 +1,15 @@
 Fujitsu Java Programming Trial Task - REST interface Documentation
 
+In order to start the server download download and save this project in intelij,
+hoose edit configuration and then add tomcat server configuration (choose apache-tomcat-10.19.1).
 
- Ctrl + A = beginning of line		 In order to start the server download download and save this project in intelij, 
- Ctrl + E = end of line		 choose edit configuration and then add tomcat server configuration (choose apache-tomcat-10.19.1).
+Endpoint for calculating delivery fee is
 
+```
+http://localhost:8080/api/fee
+```
 
- `~` is the variable for the home directory		 Endpoint for calculating delivery fee is
-
-
- ```		 ```
- echo ~		 http://localhost:8080/api/fee
- ```		 ```
-
-
- Tab completion: tab twice to display all of the available options.		 GET request has 2 mandatory parameters (`city` and  `transport`). For example in order to calculate delivery fee in city Tallin by car use (`city` and  `transport` are not case sensetive)
+This GET request has 2 mandatory parameters (`city` and  `transport`). For example in order to calculate delivery fee in city Tallin by car use (`city` and  `transport` are not case sensetive)
 
  ```
  http://localhost:8080/api/fee?transport=car&city=tallinn
@@ -40,4 +36,31 @@ Fujitsu Java Programming Trial Task - REST interface Documentation
  * `wsef_fee` - extra fee for high wind speed.
  * `wpef_snow_or_sleetFee` - extra fee for bike or scooter delivery in snow or sleet.
  * `wpef_snow_rain_fee` - extra fee for bike or scooter delivery in rain.
- * `datetime` - this is date and time parameter. Must be in form 
+ * `datetime` - this is date and time parameter. Must be in form yyyy-MM-dd_HH:mm
+
+Endpoint for requesting fee calculation rules
+
+```
+http://localhost:8080/api/rules
+```
+
+This GET request has no parameter
+
+
+Endpoint for setting new fee calculation rules
+
+```
+http://localhost:8080/api/rules/new
+```
+
+This POST request has 1 mandatory parameters `city`, which specifies the city for which business rules will be cahnged. There are in total 12 diferent optional parameters for business (float value) rule calculations, the same as for calculating delivery fee. At least on parameter must be specified. Business rules with non-specified parameters will not be chaanged.
+
+
+
+
+
+
+
+
+
+
