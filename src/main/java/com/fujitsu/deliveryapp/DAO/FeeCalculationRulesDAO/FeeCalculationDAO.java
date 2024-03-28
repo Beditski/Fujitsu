@@ -17,13 +17,11 @@ public class FeeCalculationDAO {
      * @throws UsageOfSelectedVehicleForbidden thrwon if weather conditions are too sever.
      * @throws SQLException thrown if there are any problems related to DB connection and data extraction
      */
-    protected static void controlWeatherConditions(FeeCalculationRules feeCalculationRules, ResultSet weatherStationInfo) throws UsageOfSelectedVehicleForbidden, SQLException {
-        if (feeCalculationRules.getWsefSpeedMax() < weatherStationInfo.getDouble("WIND_SPEED") ||
+    protected static boolean severWeatherConditions(FeeCalculationRules feeCalculationRules, ResultSet weatherStationInfo) throws UsageOfSelectedVehicleForbidden, SQLException {
+        return feeCalculationRules.getWsefSpeedMax() < weatherStationInfo.getDouble("WIND_SPEED") ||
                 weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("glaze") ||
                 weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("hale") ||
-                weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("thunder")) {
-            throw new UsageOfSelectedVehicleForbidden("Usage of selected vehicle type is forbidden");
-        }
+                weatherStationInfo.getString("WEATHER_PHENOMENON").equalsIgnoreCase("thunder");
     }
 
     /**
@@ -41,8 +39,10 @@ public class FeeCalculationDAO {
             return feeCalculationRules.getRbfCar().toString(); // Return RBF for the car.
         }
         else {
-            // If selected vehicle is either scooter or bike and weather conditions are too sever - throw an exception
-            controlWeatherConditions(feeCalculationRules, weatherStationInfo);
+            // If selected vehicle is either scooter or bike and weather conditions
+            // are too sever notif that selected vehicle type is forbidden
+            if (severWeatherConditions(feeCalculationRules, weatherStationInfo))
+                return "Usage of selected vehicle type is forbidden";
             // Determine base fee (scooter or bike)
             fee = addScooterOrBikeFee(feeCalculationRules);
             // Adding air temperature extra fee (ATEF) if required conditions are met

@@ -1,0 +1,140 @@
+28-Mar-2024 21:24:17.721 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/10.1.19
+28-Mar-2024 21:24:17.726 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 14 2024 19:36:50 UTC
+28-Mar-2024 21:24:17.726 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 10.1.19.0
+28-Mar-2024 21:24:17.726 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+28-Mar-2024 21:24:17.726 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            13.2
+28-Mar-2024 21:24:17.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+28-Mar-2024 21:24:17.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Users/beditski/Library/Java/JavaVirtualMachines/openjdk-21.0.2/Contents/Home
+28-Mar-2024 21:24:17.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           21.0.2+13-58
+28-Mar-2024 21:24:17.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+28-Mar-2024 21:24:17.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/beditski/Fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:24:17.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/beditski/Fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:24:17.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/beditski/fujitsu/apache-tomcat-10.1.19/conf/logging.properties
+28-Mar-2024 21:24:17.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/beditski/fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/beditski/fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:24:17.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/beditski/fujitsu/apache-tomcat-10.1.19/temp
+28-Mar-2024 21:24:17.773 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/beditski/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+28-Mar-2024 21:24:18.110 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:24:18.138 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [628] milliseconds
+28-Mar-2024 21:24:18.180 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Mar-2024 21:24:18.181 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/10.1.19]
+28-Mar-2024 21:24:18.189 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/docs]
+28-Mar-2024 21:24:18.558 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/docs] has finished in [367] ms
+28-Mar-2024 21:24:18.558 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/manager]
+28-Mar-2024 21:24:18.599 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/manager] has finished in [41] ms
+28-Mar-2024 21:24:18.599 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/examples]
+28-Mar-2024 21:24:18.876 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/examples] has finished in [276] ms
+28-Mar-2024 21:24:18.876 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/ROOT]
+28-Mar-2024 21:24:18.898 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/ROOT] has finished in [22] ms
+28-Mar-2024 21:24:18.899 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/host-manager]
+28-Mar-2024 21:24:18.918 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/host-manager] has finished in [20] ms
+28-Mar-2024 21:24:18.922 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:24:18.938 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [798] milliseconds
+28-Mar-2024 21:25:54.813 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+28-Mar-2024 21:25:54.816 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:25:54.823 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Mar-2024 21:25:54.856 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:25:54.869 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:26:43.312 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/10.1.19
+28-Mar-2024 21:26:43.319 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 14 2024 19:36:50 UTC
+28-Mar-2024 21:26:43.319 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 10.1.19.0
+28-Mar-2024 21:26:43.319 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+28-Mar-2024 21:26:43.319 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            13.2
+28-Mar-2024 21:26:43.319 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+28-Mar-2024 21:26:43.319 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Users/beditski/Library/Java/JavaVirtualMachines/openjdk-21.0.2/Contents/Home
+28-Mar-2024 21:26:43.320 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           21.0.2+13-58
+28-Mar-2024 21:26:43.320 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+28-Mar-2024 21:26:43.320 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/beditski/Fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:26:43.320 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/beditski/Fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:26:43.348 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/beditski/fujitsu/apache-tomcat-10.1.19/conf/logging.properties
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Mar-2024 21:26:43.349 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Mar-2024 21:26:43.350 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Mar-2024 21:26:43.350 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/beditski/fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:26:43.350 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/beditski/fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:26:43.350 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/beditski/fujitsu/apache-tomcat-10.1.19/temp
+28-Mar-2024 21:26:43.366 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/beditski/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+28-Mar-2024 21:26:43.805 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:26:43.840 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [790] milliseconds
+28-Mar-2024 21:26:43.887 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Mar-2024 21:26:43.888 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/10.1.19]
+28-Mar-2024 21:26:43.898 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/docs]
+28-Mar-2024 21:26:44.458 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/docs] has finished in [559] ms
+28-Mar-2024 21:26:44.459 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/manager]
+28-Mar-2024 21:26:44.516 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/manager] has finished in [57] ms
+28-Mar-2024 21:26:44.516 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/examples]
+28-Mar-2024 21:26:44.933 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/examples] has finished in [416] ms
+28-Mar-2024 21:26:44.933 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/ROOT]
+28-Mar-2024 21:26:44.954 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/ROOT] has finished in [20] ms
+28-Mar-2024 21:26:44.954 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/host-manager]
+28-Mar-2024 21:26:44.979 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/host-manager] has finished in [24] ms
+28-Mar-2024 21:26:44.983 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:26:44.995 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1153] milliseconds
+28-Mar-2024 21:33:25.221 INFO [Catalina-utility-2] org.apache.catalina.users.MemoryUserDatabase.backgroundProcess Reloading memory user database [UserDatabase] from updated source [file:/Users/beditski/Fujitsu/apache-tomcat-10.1.19/conf/tomcat-users.xml]
+28-Mar-2024 21:33:25.737 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+28-Mar-2024 21:33:25.740 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:33:25.750 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Mar-2024 21:33:25.813 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:33:25.826 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:33:28.589 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/10.1.19
+28-Mar-2024 21:33:28.592 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 14 2024 19:36:50 UTC
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 10.1.19.0
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            13.2
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Users/beditski/Library/Java/JavaVirtualMachines/openjdk-21.0.2/Contents/Home
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           21.0.2+13-58
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/beditski/Fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:33:28.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/beditski/Fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:33:28.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/beditski/fujitsu/apache-tomcat-10.1.19/conf/logging.properties
+28-Mar-2024 21:33:28.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Mar-2024 21:33:28.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Mar-2024 21:33:28.606 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/beditski/fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:33:28.606 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/beditski/fujitsu/apache-tomcat-10.1.19
+28-Mar-2024 21:33:28.606 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/beditski/fujitsu/apache-tomcat-10.1.19/temp
+28-Mar-2024 21:33:28.616 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/beditski/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+28-Mar-2024 21:33:28.890 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:33:28.910 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [483] milliseconds
+28-Mar-2024 21:33:28.948 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Mar-2024 21:33:28.948 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/10.1.19]
+28-Mar-2024 21:33:28.958 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/docs]
+28-Mar-2024 21:33:29.230 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/docs] has finished in [272] ms
+28-Mar-2024 21:33:29.230 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/manager]
+28-Mar-2024 21:33:29.272 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/manager] has finished in [42] ms
+28-Mar-2024 21:33:29.272 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/examples]
+28-Mar-2024 21:33:29.544 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/examples] has finished in [272] ms
+28-Mar-2024 21:33:29.544 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/ROOT]
+28-Mar-2024 21:33:29.562 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/ROOT] has finished in [17] ms
+28-Mar-2024 21:33:29.562 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/host-manager]
+28-Mar-2024 21:33:29.582 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/beditski/Fujitsu/apache-tomcat-10.1.19/webapps/host-manager] has finished in [20] ms
+28-Mar-2024 21:33:29.586 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:33:29.596 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [685] milliseconds
+28-Mar-2024 21:34:29.606 INFO [Catalina-utility-2] org.apache.catalina.users.MemoryUserDatabase.backgroundProcess Reloading memory user database [UserDatabase] from updated source [file:/Users/beditski/Fujitsu/apache-tomcat-10.1.19/conf/tomcat-users.xml]
+28-Mar-2024 21:34:29.934 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+28-Mar-2024 21:34:29.935 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:34:29.939 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+28-Mar-2024 21:34:29.963 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+28-Mar-2024 21:34:29.972 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
