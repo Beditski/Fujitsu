@@ -30,7 +30,7 @@ public class FeeCalculationRulesDAO {
      * @param dataBaseUsername DB username.
      * @param dataBasePassword DB password.
      */
-    public FeeCalculationRulesDAO(@Value("org.h2.Driver") String dataBaseDriver,
+    private FeeCalculationRulesDAO(@Value("org.h2.Driver") String dataBaseDriver,
                                   @Value("jdbc:h2:~/test;AUTO_SERVER=TRUE") String dataBaseUrl,
                                   @Value("sa") String dataBaseUsername,
                                   @Value("") String dataBasePassword) {

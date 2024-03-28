@@ -42,10 +42,11 @@ public class WeatherStationController {
      * Requests weather data from the weather portal of the Estonian Environment Agency with the frequency of
      * every hour, 15 minutes after a full hour (HH:15:00) and then adds it to the database.
      */
-    @Scheduled(cron = "* 15 1 * * *")
+    @Scheduled(cron = "* * * * * *")
     private void fetchWeatherData() throws SQLException {
         // Parse page into String
         String weatherData = this.restTemplate.getForObject(weatherDataUrl, String.class);
+        System.out.println(weatherData);
         // If result not null - then update weather info
         if (weatherData != null) {
             weatherStationDAO.updateWeatherData(parseWeatherData(weatherData));
@@ -60,7 +61,7 @@ public class WeatherStationController {
      * @param weatherData parsed XML file which contains weather stations' information.
      * @return WeatherStation list.
      */
-    private static List<WeatherStation> parseWeatherData(String weatherData) {
+    public static List<WeatherStation> parseWeatherData(String weatherData) {
         /*
          * Remove all new line characters, tabulations and tabulation-like whitespace characters and
          * </station> substrings. Removal of </station> allows to split the string easily later on into

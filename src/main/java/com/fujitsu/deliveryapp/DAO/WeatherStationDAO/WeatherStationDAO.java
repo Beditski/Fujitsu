@@ -29,7 +29,7 @@ public class WeatherStationDAO {
      * @param dataBasePassword DB password.
      */
     @Autowired
-    public WeatherStationDAO(@Value("org.h2.Driver") String dataBaseDriver,
+    private WeatherStationDAO(@Value("org.h2.Driver") String dataBaseDriver,
                   @Value("jdbc:h2:~/test;AUTO_SERVER=TRUE") String dataBaseUrl,
                   @Value("sa") String dataBaseUsername,
                   @Value("") String dataBasePassword) {

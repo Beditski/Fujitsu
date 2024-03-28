@@ -39,4 +39,31 @@ public class WeatherStation {
                 this.weatherPhenomenon + '\'' + ", " +
                 this.timestamp;
     }
+
+    /*
+     * All the followings methods are getters
+     */
+    public String getNameOfTheStation() {
+        return nameOfTheStation;
+    }
+
+    public int getWmoCode() {
+        return wmoCode;
+    }
+
+    public double getAirTemperature() {
+        return airTemperature;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public String getWeatherPhenomenon() {
+        return weatherPhenomenon;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
 }
