@@ -1,4 +1,4 @@
-package com.fujitsu.deliveryapp.controllers.exceptions;
+package com.fujitsu.deliveryapp.config.exceptions;
 
 import java.security.InvalidAlgorithmParameterException;
 

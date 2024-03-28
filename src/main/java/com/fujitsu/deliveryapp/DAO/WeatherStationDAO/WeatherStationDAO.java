@@ -84,7 +84,7 @@ public class WeatherStationDAO {
         try (Statement statement = connection.createStatement()) {
             String SQL = "INSERT INTO weather_station VALUES(" + weatherStation + ")";
             statement.executeUpdate(SQL);
-            System.out.println(SQL);
+//            System.out.println(SQL);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

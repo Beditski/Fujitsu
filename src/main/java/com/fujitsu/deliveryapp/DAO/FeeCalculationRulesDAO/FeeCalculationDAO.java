@@ -1,7 +1,7 @@
 package com.fujitsu.deliveryapp.DAO.FeeCalculationRulesDAO;
 
 import com.fujitsu.deliveryapp.models.FeeCalculationRules;
-import com.fujitsu.deliveryapp.DAO.exceptions.UsageOfSelectedVehicleForbidden;
+import com.fujitsu.deliveryapp.config.exceptions.UsageOfSelectedVehicleForbidden;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,7 +54,6 @@ public class FeeCalculationDAO {
         }
         return String.valueOf(fee);
     }
-
 
     /**
      * Returns scooter or bike regional base fee based on passed fee calculation rules.

@@ -1,13 +1,15 @@
 package com.fujitsu.deliveryapp.controllers;
 
 import com.fujitsu.deliveryapp.DAO.FeeCalculationRulesDAO.FeeCalculationRulesDAO;
+import com.fujitsu.deliveryapp.config.exceptions.UsageOfSelectedVehicleForbidden;
 import com.fujitsu.deliveryapp.models.FeeCalculationRules;
-import com.fujitsu.deliveryapp.controllers.exceptions.InvalidCityParameterException;
-import com.fujitsu.deliveryapp.controllers.exceptions.NonPositiveArgumentException;
+import com.fujitsu.deliveryapp.config.exceptions.InvalidCityParameterException;
+import com.fujitsu.deliveryapp.config.exceptions.NonPositiveArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 
 /**
@@ -60,9 +62,9 @@ public class FeeCalculationRulesController {
      * Controls whether city name is correct or not, handles case errors,
      * throws InvalidCityParameterException exception if wrong city
      * was specified in the request.
-     * @param city city name
-     * @return correct city name
-     * @throws InvalidCityParameterException thrown if invalid city was choosen.
+     * @param city city name.
+     * @return correct city name.
+     * @throws InvalidCityParameterException thrown when invalid city is passed as parameter.
      */
     private static String getCityNam(String city) throws InvalidCityParameterException {
         return switch (city.toLowerCase()) {
@@ -96,8 +98,9 @@ public class FeeCalculationRulesController {
     }
 
     /**
-     * Processes input parameters, creates a model and sends it to DAO to calculate delivery fee.
-     * Throws an errors if parameters are incorrect.
+     * Processes request parameters, creates a model with fee calculation rules and sends it to DAO to calculate delivery fee.
+     * If invalid parameter was passed to the request - it won't be processed.
+     * Throws an exception if any of parameters are incorrect.
      * @param city city name for requested delivery.
      * @param transport delivery transport type.
      * @param rbfCar regional based fee for the car (optional).
@@ -113,7 +116,9 @@ public class FeeCalculationRulesController {
      * @param wpefSnowOrSleetFee wind phenomenon (snow or sleet) extra fee for bike and scooter delivery (optional).
      * @param wpefSnowRainFee wind phenomenon (rain) extra fee for bike and scooter delivery (optional).
      * @param dateFormat date and time for time moment, at which fee is wanted to be calculated (optional).
-     * @throws Exception if something goes wrong - throw a corresponding exception.
+     * @throws SQLException exception related with a sql request.
+     * @throws UsageOfSelectedVehicleForbidden thrown when selected transport is either scooter or bike and weather is too sever.
+     * @throws InvalidCityParameterException thrown when invalid city is passed as parameter.
      */
     @GetMapping("/calculator")
     private String getFee(@RequestParam(value = "city") String city,
@@ -136,7 +141,7 @@ public class FeeCalculationRulesController {
                           @RequestParam(value = "wpefSnowRainFee", required = false) Double wpefSnowRainFee,
 
                           @RequestParam(value = "dateformat", required = false) DateFormat dateFormat
-    ) throws Exception {
+    ) throws SQLException, UsageOfSelectedVehicleForbidden, InvalidCityParameterException {
         // Handle case error
         city = getCityNam(city);
         // Get weather station's name
@@ -163,7 +168,9 @@ public class FeeCalculationRulesController {
     }
 
     /**
-     * Processes input parameters, creates a model and sends it to DAO to set new delivery fee rules.
+     * Processes request parameters, creates a model with new calculation rules and sends it to DAO to set new delivery fee rules.
+     * If invalid parameter was passed to the request - it won't be processed. If all new business rules
+     * are nulls - a NullPointerException will be thrown.
      * Throws an errors if parameters are incorrect.
      * @param city city name for requested delivery.
      * @param rbfCar regional based fee for the car (optional).
@@ -178,6 +185,9 @@ public class FeeCalculationRulesController {
      * @param wsefFee wind speed extra fee for bike and scooter delivery (optional).
      * @param wpefSnowOrSleetFee wind phenomenon (snow or sleet) extra fee for bike and scooter delivery (optional).
      * @param wpefSnowRainFee wind phenomenon (rain) extra fee for bike and scooter delivery (optional).
+     * @throws NullPointerException if all rules are nulls this exception wil be thrown.
+     * @throws InvalidCityParameterException if invalid city was passed this exception will be thrown.
+     * @throws SQLException thrown if there is any problem related to DB connection or request.
      */
     @GetMapping("/rules")
     private String setRules(@RequestParam(value = "city") String city,
@@ -197,7 +207,7 @@ public class FeeCalculationRulesController {
 
                             @RequestParam(value = "wpefSnowOrSleetFee", required = false) Double wpefSnowOrSleetFee,
                             @RequestParam(value = "wpefSnowRainFee", required = false) Double wpefSnowRainFee
-    ) throws InvalidCityParameterException {
+    ) throws InvalidCityParameterException, SQLException {
         // Handle case error
         city = getCityNam(city);
         // Get weather station's name
@@ -218,6 +228,25 @@ public class FeeCalculationRulesController {
 
         this.feeCalculationRulesDAO.updateFeeRules(feeCalculationRules);
 
+        return "fee/rules";
+    }
+
+    /**
+     * Takes 3 optional request parameters. If all parameters are nulls - all business rules will be reset to default
+     * values. If at least one parameter is not null, null parameters will not be reset to default values.
+     * All true parameters will cause reset to default values for business rules in the corresponding city.
+     * @param bool1 reset business rules to default values in Tallinn.
+     * @param bool2 reset business rules to default values in Tartu.
+     * @param bool3 reset business rules to default values in Pärnu.
+     * @return a html page.
+     * @throws SQLException thrown if there is any problem with DB connection or DB request.
+     */
+    @GetMapping("/rules-reset")
+    private String resetRules(
+            @RequestParam(value = "tallinn", required = false) Boolean bool1,
+            @RequestParam(value = "tartu", required = false) Boolean bool2,
+            @RequestParam(value = "pärnu", required = false) Boolean bool3) throws SQLException {
+        this.feeCalculationRulesDAO.resetFeeRules(bool1, bool2, bool3);
         return "fee/rules";
     }
 }

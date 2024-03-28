@@ -111,6 +111,4 @@ public class FeeCalculationRulesSetterDAO {
             feeCalculationRules.setTimestamp(System.currentTimeMillis() / 1000);
         }
     }
-
-
 }
