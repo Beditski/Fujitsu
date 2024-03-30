@@ -42,7 +42,7 @@ public class WeatherStationController {
      * Requests weather data from the weather portal of the Estonian Environment Agency with the frequency of
      * every hour, 15 minutes after a full hour (HH:15:00) and then adds it to the database.
      */
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "* 1 15 * * *")
     private void fetchWeatherData() throws SQLException {
         // Parse page into String
         String weatherData = this.restTemplate.getForObject(weatherDataUrl, String.class);
